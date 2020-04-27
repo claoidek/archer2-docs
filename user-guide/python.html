@@ -1,0 +1,530 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Using Python &mdash; ARCHER2 0.2alpha documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Data analysis" href="analysis.html" />
+    <link rel="prev" title="Containers" href="containers.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ARCHER2
+          
+
+          
+            
+            <img src="../_static/archer2_white_transparent.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Quick start</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../quick-start/overview.html">Overview</a></li>
+</ul>
+<p class="caption"><span class="caption-text">User and best practice guide</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connecting.html">Connecting to ARCHER2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data management and transfer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sw-environment.html">Software environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scheduler.html">Running jobs on ARCHER2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">I/O and file systems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dev-environment.html">Application development environment</a></li>
+<li class="toctree-l1"><a class="reference internal" href="containers.html">Containers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Using Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#accessing-central-anaconda-python">Accessing central Anaconda Python</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#packages-included-in-anaconda-distributions">Packages included in Anaconda distributions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-packages-to-the-anaconda-distribution">Adding packages to the Anaconda distribution</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-environments">Custom Environments</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-miniconda">Installing Miniconda</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-packages-into-miniconda">Installing packages into Miniconda</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="analysis.html">Data analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="debug.html">Debugging</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profile.html">Profiling and performance tuning</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Research software</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/castep/castep.html">CASTEP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/chemshell/chemshell.html">ChemShell</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/code-saturne/code-saturne.html">Code Saturne</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/cp2k/cp2k.html">CP2K</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/elk/elk.html">ELK</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/fenics/fenics.html">FEniCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/gromacs/gromacs.html">GROMACS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/lammps/lammps.html">LAMMPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/mitgcm/mitgcm.html">MITgcm</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/mo-unified-model/mo-unified-model.html">Met Office Unified Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/namd/namd.html">NAMD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/nemo/nemo.html">NEMO</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/nwchem/nwchem.html">NWChem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/onetep/onetep.html">ONETEP</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/openfoam/openfoam.html">OpenFOAM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/qe/qe.html">Quantum Espresso</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../research-software/vasp/vasp.html">VASP</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Software libraries</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../software-libraries/overview.html">Overview</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Data analysis and tools</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../data-tools/overview.html">Overview</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Essential skills</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../essentials/overview.html">Overview</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ARCHER2</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Using Python</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            
+              <a href="https://github.com/archer2-hpc/archer2-docs/blob/master/user-guide/python.rst" class="fa fa-github"> Edit on GitHub</a>
+            
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="using-python">
+<h1>Using Python<a class="headerlink" href="#using-python" title="Permalink to this headline">¶</a></h1>
+<p>Python on Cirrus is provided by the <a class="reference external" href="https://www.continuum.io/">Anaconda</a>
+distribution. Both Python 2 and Python 3 versions of the distributions are
+supported.</p>
+<p>The central installation provides many of the most common packges used for
+scientific computation and data analysis.</p>
+<p>If the packages you require are not included in the central Anaconda Python
+distribution, then the simplest way to make these available is often to install
+your own version of <a class="reference external" href="https://conda.io/miniconda.html">Miniconda</a>  and add the packages you need. We provide
+instructions on how to do this below. An alternative way to provide your own
+packages (and to make them available more generally to other people in your
+project and beyond) would be to use a Singularity container, see the <a class="reference internal" href="containers.html"><span class="doc">Containers</span></a>
+chapter of this User Guide for more information on this topic.</p>
+<div class="section" id="accessing-central-anaconda-python">
+<h2>Accessing central Anaconda Python<a class="headerlink" href="#accessing-central-anaconda-python" title="Permalink to this headline">¶</a></h2>
+<p>Users have the standard system Python available by default. To setup your environment
+to use the Anaconda distributions you should use:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">load</span> <span class="n">anaconda</span><span class="o">/</span><span class="n">python2</span>
+</pre></div>
+</div>
+<p>for Python 2, or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">module</span> <span class="n">load</span> <span class="n">anaconda</span><span class="o">/</span><span class="n">python3</span>
+</pre></div>
+</div>
+<p>for Python 3.</p>
+<p>You can verify the current version of Python with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@cirrus-login0 ~]$ module load anaconda/python2
+[user@cirrus-login0 ~]$ python --version
+Python 2.7.12 :: Anaconda 4.2.0 (64-bit)
+</pre></div>
+</div>
+<p>Full details on the Anaconda distributions can be found on the Continuum website at:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.continuum.io/anaconda/index.html">http://docs.continuum.io/anaconda/index.html</a></li>
+</ul>
+<div class="section" id="packages-included-in-anaconda-distributions">
+<h3>Packages included in Anaconda distributions<a class="headerlink" href="#packages-included-in-anaconda-distributions" title="Permalink to this headline">¶</a></h3>
+<p>You can list the packages currently available in the distribution you have loaded with the command conda list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@cirrus-login0 ~]$ module load anaconda
+[user@cirrus-login0 ~]$ conda list
+# packages in environment at /lustre/sw/anaconda/anaconda2:
+#
+_license                  1.1                      py27_1
+alabaster                 0.7.10                   py27_0
+anaconda                  custom                   py27_0
+anaconda-client           1.6.3                    py27_0
+anaconda-navigator        1.2.3                    py27_0
+anaconda-project          0.6.0                    py27_0
+argcomplete               1.0.0                    py27_1
+asn1crypto                0.22.0                   py27_0
+astroid                   1.4.9                    py27_0
+...
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-packages-to-the-anaconda-distribution">
+<h3>Adding packages to the Anaconda distribution<a class="headerlink" href="#adding-packages-to-the-anaconda-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Adding packages to the central Anaconda distribution cannot be done by users. If you wish to have additional
+packages, we recommend installing your own local version of Miniconda and adding the packages you need. This
+approach is described in Custom Environment below.</p>
+</div>
+</div>
+<div class="section" id="custom-environments">
+<h2>Custom Environments<a class="headerlink" href="#custom-environments" title="Permalink to this headline">¶</a></h2>
+<p>To setup a custom Python environment including packages that are not in the central installation, the simplest
+approach is the install Miniconda locally in your own directories.</p>
+<div class="section" id="installing-miniconda">
+<h3>Installing Miniconda<a class="headerlink" href="#installing-miniconda" title="Permalink to this headline">¶</a></h3>
+<p>First, you should download Miniconda. You can use <code class="docutils literal notranslate"><span class="pre">wget</span></code> to do this, for example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">wget</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">repo</span><span class="o">.</span><span class="n">continuum</span><span class="o">.</span><span class="n">io</span><span class="o">/</span><span class="n">miniconda</span><span class="o">/</span><span class="n">Miniconda3</span><span class="o">-</span><span class="n">latest</span><span class="o">-</span><span class="n">Linux</span><span class="o">-</span><span class="n">x86_64</span><span class="o">.</span><span class="n">sh</span>
+</pre></div>
+</div>
+<p>You can find links to the various miniconda versions on the Miniconda website:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://conda.io/miniconda.html">https://conda.io/miniconda.html</a></li>
+</ul>
+<p>For Cirrus, you should use the Linux 64-bit (bash installer).</p>
+<p>Once you have downloaded the installer, you can run it. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@cirrus-login0 ~]$ bash Miniconda3-latest-Linux-x86_64.sh
+
+Welcome to Miniconda3 4.3.31
+
+In order to continue the installation process, please review the license
+agreement.
+Please, press ENTER to continue
+&gt;&gt;&gt;
+====================================
+Miniconda End User License Agreement
+====================================
+
+---snip---
+
+
+Do you accept the license terms? [yes|no]
+[no] &gt;&gt;&gt; yes
+
+Miniconda3 will now be installed into this location:
+/lustre/home/t01/user/miniconda3
+
+  - Press ENTER to confirm the location
+  - Press CTRL-C to abort the installation
+  - Or specify a different location below
+
+[/lustre/home/t01/user/miniconda3] &gt;&gt;&gt;
+PREFIX=/lustre/home/t01/user/miniconda3
+installing: python-3.6.3-h6c0c0dc_5 ...
+installing: ca-certificates-2017.08.26-h1d4fec5_0 ...
+installing: conda-env-2.6.0-h36134e3_1 ...
+installing: libgcc-ng-7.2.0-h7cc24e2_2 ...
+installing: libstdcxx-ng-7.2.0-h7a57d05_2 ...
+installing: libffi-3.2.1-hd88cf55_4 ...
+installing: ncurses-6.0-h9df7e31_2 ...
+installing: openssl-1.0.2n-hb7f436b_0 ...
+installing: tk-8.6.7-hc745277_3 ...
+installing: xz-5.2.3-h55aa19d_2 ...
+installing: yaml-0.1.7-had09818_2 ...
+installing: zlib-1.2.11-ha838bed_2 ...
+installing: libedit-3.1-heed3624_0 ...
+installing: readline-7.0-ha6073c6_4 ...
+installing: sqlite-3.20.1-hb898158_2 ...
+installing: asn1crypto-0.23.0-py36h4639342_0 ...
+installing: certifi-2017.11.5-py36hf29ccca_0 ...
+installing: chardet-3.0.4-py36h0f667ec_1 ...
+installing: idna-2.6-py36h82fb2a8_1 ...
+installing: pycosat-0.6.3-py36h0a5515d_0 ...
+installing: pycparser-2.18-py36hf9f622e_1 ...
+installing: pysocks-1.6.7-py36hd97a5b1_1 ...
+installing: ruamel_yaml-0.11.14-py36ha2fb22d_2 ...
+installing: six-1.11.0-py36h372c433_1 ...
+installing: cffi-1.11.2-py36h2825082_0 ...
+installing: setuptools-36.5.0-py36he42e2e1_0 ...
+installing: cryptography-2.1.4-py36hd09be54_0 ...
+installing: wheel-0.30.0-py36hfd4bba0_1 ...
+installing: pip-9.0.1-py36h6c6f9ce_4 ...
+installing: pyopenssl-17.5.0-py36h20ba746_0 ...
+installing: urllib3-1.22-py36hbe7ace6_0 ...
+installing: requests-2.18.4-py36he2e5f8d_1 ...
+installing: conda-4.3.31-py36_0 ...
+installation finished.
+WARNING:
+    You currently have a PYTHONPATH environment variable set. This may cause
+    unexpected behavior when running the Python interpreter in Miniconda3.
+    For best results, please verify that your PYTHONPATH only points to
+    directories of packages that are compatible with the Python interpreter
+    in Miniconda3: /lustre/home/t01/user/miniconda3
+Do you wish the installer to prepend the Miniconda3 install location
+to PATH in your /lustre/home/t01/user/.bashrc ? [yes|no]
+[no] &gt;&gt;&gt;
+
+You may wish to edit your .bashrc to prepend the Miniconda3 install location to PATH:
+
+export PATH=/lustre/home/t01/user/miniconda3/bin:$PATH
+
+Thank you for installing Miniconda3!
+</pre></div>
+</div>
+<p>Miniconda is now installed in your local directories but we still need to setup a way to access it
+correctly. There are a number of ways to do this.</p>
+<ul class="simple">
+<li>If you are always going to be using this Python environment on ARCHER and do not wish to use any
+other Python environment, you can follow the advice of the Miniconda installer and add a line to
+your <code class="docutils literal notranslate"><span class="pre">.bashrc</span></code> file</li>
+<li>You can export PATH every time you wish to use you local install by using the bash command
+<code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">PATH=/lustre/home/t01/user/miniconda3/bin:$PATH</span></code> (using the correct PATH as specified by
+the installer). This will become tedious if you use the environment often!</li>
+<li>You can create an alias in your <cite>.bashrc</cite> file to set the path. For example, adding the line
+<code class="docutils literal notranslate"><span class="pre">alias</span> <span class="pre">condasetup=&quot;export</span> <span class="pre">PATH=/lustre/home/t01/user/miniconda3/bin:$PATH&quot;</span></code> would allow you to
+use the command <code class="docutils literal notranslate"><span class="pre">condasetup</span></code> to initialise the Miniconda environment.</li>
+<li>You could also create a modulefile to provide a way to initialise the environment using
+<code class="docutils literal notranslate"><span class="pre">module</span> <span class="pre">load</span> <span class="pre">...</span></code> as we do for our Anaconda environments. Please contact the helpdesk if you want help to do this.</li>
+</ul>
+</div>
+<div class="section" id="installing-packages-into-miniconda">
+<h3>Installing packages into Miniconda<a class="headerlink" href="#installing-packages-into-miniconda" title="Permalink to this headline">¶</a></h3>
+<p>Once you have installed Miniconda and setup your environment to access it, you can then add whatever packages
+you wish to the installation using the <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">...</span></code> command. For example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@cirrus-login0 ~]$ conda install numpy
+Fetching package metadata ...............
+Solving package specifications: .
+
+Package plan for installation in environment /lustre/home/t01/user/miniconda3:
+
+The following NEW packages will be INSTALLED:
+
+    blas:        1.1-openblas                  conda-forge
+    libgfortran: 3.0.0-1
+    numpy:       1.14.0-py36_blas_openblas_200 conda-forge [blas_openblas]
+    openblas:    0.2.20-7                      conda-forge
+
+The following packages will be UPDATED:
+
+    conda:       4.3.31-py36_0                             --&gt; 4.3.33-py36_0 conda-forge
+
+The following packages will be SUPERSEDED by a higher-priority channel:
+
+    conda-env:   2.6.0-h36134e3_1                          --&gt; 2.6.0-0       conda-forge
+
+Proceed ([y]/n)? y
+
+conda-env-2.6. 100% |########################################################################| Time: 0:00:00  33.71 kB/s
+libgfortran-3. 100% |########################################################################| Time: 0:00:00   7.85 MB/s
+openblas-0.2.2 100% |########################################################################| Time: 0:00:03   4.84 MB/s
+blas-1.1-openb 100% |########################################################################| Time: 0:00:00   1.33 MB/s
+numpy-1.14.0-p 100% |########################################################################| Time: 0:00:01   5.00 MB/s
+conda-4.3.33-p 100% |########################################################################| Time: 0:00:00   5.71 MB/s
+Here we see the numpy module has been installed in the local environment:
+
+[user@cirrus-login0 ~]$ conda list
+# packages in environment at /lustre/home/t01/user/miniconda3:
+#
+asn1crypto                0.23.0           py36h4639342_0
+blas                      1.1                    openblas    conda-forge
+ca-certificates           2017.08.26           h1d4fec5_0
+certifi                   2017.11.5        py36hf29ccca_0
+cffi                      1.11.2           py36h2825082_0
+chardet                   3.0.4            py36h0f667ec_1
+conda                     4.3.33                   py36_0    conda-forge
+conda-env                 2.6.0                         0    conda-forge
+cryptography              2.1.4            py36hd09be54_0
+idna                      2.6              py36h82fb2a8_1
+libedit                   3.1                  heed3624_0
+libffi                    3.2.1                hd88cf55_4
+libgcc-ng                 7.2.0                h7cc24e2_2
+libgfortran               3.0.0                         1
+libstdcxx-ng              7.2.0                h7a57d05_2
+ncurses                   6.0                  h9df7e31_2
+numpy                     1.14.0          py36_blas_openblas_200  [blas_openblas]  conda-forge
+openblas                  0.2.20                        7    conda-forge
+openssl                   1.0.2n               hb7f436b_0
+pip                       9.0.1            py36h6c6f9ce_4
+pycosat                   0.6.3            py36h0a5515d_0
+pycparser                 2.18             py36hf9f622e_1
+pyopenssl                 17.5.0           py36h20ba746_0
+pysocks                   1.6.7            py36hd97a5b1_1
+python                    3.6.3                h6c0c0dc_5
+readline                  7.0                  ha6073c6_4
+requests                  2.18.4           py36he2e5f8d_1
+ruamel_yaml               0.11.14          py36ha2fb22d_2
+setuptools                36.5.0           py36he42e2e1_0
+six                       1.11.0           py36h372c433_1
+sqlite                    3.20.1               hb898158_2
+tk                        8.6.7                hc745277_3
+urllib3                   1.22             py36hbe7ace6_0
+wheel                     0.30.0           py36hfd4bba0_1
+xz                        5.2.3                h55aa19d_2
+yaml                      0.1.7                had09818_2
+zlib                      1.2.11               ha838bed_2
+</pre></div>
+</div>
+<p>Please note, for some package installations it may also be necessary to specify a channel such as conda-forge.
+For example, the following command installs the pygobject module.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[user@cirrus-login0 ~]$ conda install -c conda-forge pygobject
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="analysis.html" class="btn btn-neutral float-right" title="Data analysis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="containers.html" class="btn btn-neutral float-left" title="Containers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, EPCC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
